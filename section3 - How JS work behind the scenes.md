@@ -118,16 +118,17 @@ console.log(age); //65
 ```
 the first age is put into the global execution context, the second age is created from the foo execution context object. They're re different
 
-## 40. SCoping and scope chain
+## 40. Scoping and scope chain
 
-Now we will loook at the second step of Execution context object is scope chain. Scoping answers the question "where can we access a certain variable?"
+Now we will look at the second step of Execution context object is scope chain. Scoping answers the question "where can we access a certain variable?"
 
-In JS each function creates a scope: the space/environment, in which the variables it defines are accessible. (only for function)
+In JS, each function creates a scope: the space/environment, in which the variables it defines are accessible. (only for function)
 
-Lexical scoping: a function that is lexical within another function gets access to the scope of the outer function. lexical function can get access to all variable and function that the parent function defines. 
+Lexical scoping: a function that is lexical within another function gets access to the scope of the outer function. lexical function can get access to all variables that the parent function defines. 
 
 example:
 
+```js
 var a = "Hello";
 first();
 
@@ -137,7 +138,7 @@ function first(){
     
     function second(){
         var c = 'Hey!";
-        console.log(a + b+ c); // can access al
+        console.log(a + b+ c); // can access all
     }
 }
 
@@ -145,7 +146,7 @@ function third(){
     var d = 'John';
     console.log(a+b+c+d); //only access a and d, but not b,c bc not parents
 }
-
+```
 Global Scope [VOgloabl]
 --> first() scope [VO1] + [VOglobal]
     ---> second() [VO1] + [VOglobal] + [VO2]
@@ -165,15 +166,16 @@ The this keyword is not assigned a value until a function where it is defined is
 
 console.log(this); // window{...}
 
+```js
 calculateAge(1985);
 
 function calculateAge(year){
     console.log(2018-year);
     console.log(this); // window object, bc it is regular function call
 }
-
+```
 now let move on to the object here
-
+```js
 var john = {
     name:'John',
     yearOfBirth: 1990;
@@ -189,23 +191,23 @@ var john = {
 }
 
 john.calculateAge(1985);
-
+```
 this keyword now reference to john object: Object{name:'John',yearOfBirth:1990}
 
 'This' variable only assigned a value as soon as an object calls a method 
-
+```js
 var mike = {
     name='mike',
     yearOfBrith: 1990;
 }
-
+```
 Now we can use borrow method in js to calucate mike calculateAge
-
+```js
 mike.calculateAge = john.calculateAge;
 
 mike.calculateAge(2018);
 
-
+```
 
 
 
