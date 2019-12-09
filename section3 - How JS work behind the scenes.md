@@ -47,16 +47,18 @@ the execution context object has three properties
 When a function is called, its function execution context is put on the top of execution context stack it happens in two phases:
 
 - creation phase
+
     A) Creation of the varibale Object (VO)
     B) Creation of the scope chain
     C) determin value of the 'this' variable
     
 - execution phase
-    the code of the function that generate current execution context is executed
+
+     the code of the function that generate current execution context is executed
     
 Inside Variable Object (VO)
 
-The argument object is created, containing all the argument that were passed into the function
+    The argument object is created, containing all the argument that were passed into the function
 
 hoisting:
 
@@ -68,18 +70,20 @@ the function and variable actually are declarated before execution.
 
 ## Hoisting in practice
 
-
+```js
 calculateAge(1967);
 
 function calculateAge(year){
     console.log(2018-year);
 }
+```
 
-in the creation phase of the execution context which is in this case the global execution context. The function declaration calculateAge is stored in Variable Object and even before the code is executed. That is why when we then enter the execution phase the calculateAge function is already available for us, so we don't have to first declare the function and then use it. 
+In the creation phase of the execution context which is in this case the global execution context. The function declaration calculateAge is stored in Variable Object and even before the code is executed. That is why when we then enter the execution phase the calculateAge function is already available for us, so we don't have to first declare the function and then use it. 
 
 let see how does it work out with function expression.
 
-retirement(1990); //ok, this time it doesn't work because this time this function   // is not a function declaration but it is a function expression. Hoisting function // only work with function declaration.
+```js
+retirement(1990); 
 
 var retirement = function(year){
     console.log(65-(2016-year));
@@ -87,19 +91,22 @@ var retirement = function(year){
 
 retirement(1990); // 39
 
+```
+ok, this time it doesn't work because this time this function is not a function declaration but it is a function expression. Hoisting function only work with function declaration.
 
 another example with hoisting
 
-
+```js
 var age = 23;
 console.log(age); // 23
-
+```
 what happen if we declate before use. 
 
+```js
 console.log(age); // undefined
 var age = 23;
-
-
+```
+```js
 function foo(){
     console.log(age); //undefined, print the age before we declare it 
     var age = 65;
@@ -107,9 +114,9 @@ function foo(){
 }
 
 foo()
-console.log(age);
-
-the first age is put into the global execution context, the second age is created from the foo execution conext object. Theya re different
+console.log(age); //65
+```
+the first age is put into the global execution context, the second age is created from the foo execution context object. They're re different
 
 ## 40. SCoping and scope chain
 
