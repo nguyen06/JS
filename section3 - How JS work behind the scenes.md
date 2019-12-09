@@ -19,9 +19,9 @@ Execution stack, also known as “calling stack” in other programming language
 When ths js engine first encounters your script, it creates a global execution context and pushes it to the execution stack. Whenever the engine finds a function invocation, it creates a new execution context for that function and pushes it to the top of the stack. 
 
 The engine executes the function whose execution context is at the top of the stack. When this function completes, its execution stack is poped off from the stack, and the control reaches the context below it in the current stack.
-
-var a = "Hello world";
 ```js
+var a = "Hello world";
+
 function first(){
     console.log('Inside first function');
     second();
