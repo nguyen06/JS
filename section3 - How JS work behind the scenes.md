@@ -21,7 +21,7 @@ When ths js engine first encounters your script, it creates a global execution c
 The engine executes the function whose execution context is at the top of the stack. When this function completes, its execution stack is poped off from the stack, and the control reaches the context below it in the current stack.
 
 var a = "Hello world";
-
+```js
 function first(){
     console.log('Inside first function');
     second();
@@ -35,6 +35,7 @@ function second(){
 first();
 console.log('Inside Global Execution context');
 
+```
 ## Execution context object
 
 the execution context object has three properties
