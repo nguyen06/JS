@@ -206,6 +206,8 @@ function nextPlayer(){
 ```
 ## 51 Implementing our 'hold' function and the DRY principle
 
+```js
+
 <button class="btn-hold"><i class="ion-iso-download-outline"></i>Hold</button>
 
    document.querySelector('.btn-hold').addEventListener('click',function(){
@@ -301,6 +303,8 @@ function nextPlayer(){
     document.querySelector('.player-0-panel').classList.add('active');
 
  }
+
+```
 
 ## State variable
 
