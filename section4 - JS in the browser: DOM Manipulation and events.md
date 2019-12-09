@@ -14,40 +14,88 @@ Game rules:
 - The player can choose to hold, which mean that this round score gets added to his Global score. After that, it's the next player's turn
 - The first player reach 100 points on Global score wins the game
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,600" rel="stylesheet" type="text/css">
+        <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+        <link type="text/css" rel="stylesheet" href="style.css">
+        
+        <title>Pig Game</title>
+    </head>
+
+    <body>
+        <div class="wrapper clearfix">
+            <div class="player-0-panel active">
+                <div class="player-name" id="name-0">Player 1</div>
+                <div class="player-score" id="score-0">43</div>
+                <div class="player-current-box">
+                    <div class="player-current-label">Current</div>
+                    <div class="player-current-score" id="current-0">11</div>
+                </div>
+            </div>
+            
+            <div class="player-1-panel">
+                <div class="player-name" id="name-1">Player 2</div>
+                <div class="player-score" id="score-1">72</div>
+                <div class="player-current-box">
+                    <div class="player-current-label">Current</div>
+                    <div class="player-current-score" id="current-1">0</div>
+                </div>
+            </div>
+            
+            <button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>
+            <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
+            <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
+            
+            <img src="dice-5.png" alt="Dice" class="dice">
+        </div>
+        
+        <script src="app.js"></script>
+    </body>
+</html>
+```
 var scores, roundScore, activePlayer, dice;
 
+```js
 scores = [0,0];
 roundScore = 0;
 activePlayer = 0;
 
 dice = 6;
-
+```
 we will use the math random with function floor to get number between 0 and 5, but we want from 1 to 6, simply add 1
 http://casualsafedate.com/806970/
+```js
 dice = Math.floor(Math.random()*6) + 1;
-
+```
 Now we want to display the score from html code
-
+```html
 <div class="player-score" id="current-0">43</div>
+```
 use the querySelector function
 
+```js
 document.querySelector('#current-0').textContent = dice;
-
+```
 I can use use the class of html to select the current player by 
-
+```js
 document.querySelector('#current-'+ activePlayer).textContent = dice;
-
+```
 or we can embbed html by using innerHTML
+```js
 document.querySelector('#current-'+ activePlayer).innerHTML = '<em>'+dice+'</em>';
-
+```
 We can also use querySelector of get value from the webpage and store in variable
-
+```js
 var x = document.querySelector('#score-0').textContent;
-
+```
 we don't want to show a dice at the first play. we can hide it by
-
+```js
 document.querySelector('.dice').style.display = 'none';
-
+```
 ## 49. Events and Event handling: Rolling the dice
 
 - Events: notifications that are sent to notify the code that something happened on the webpage
@@ -55,45 +103,48 @@ document.querySelector('.dice').style.display = 'none';
 
 - Event listener: A function that performs an action based on a certain event. It waits for a specify event to happen. 
 
-First, we need to rememeber about the Ezecution Stack. And that's because the rule is that an event can only be processed, or handled as soon as the execution stack is empty. Which mean all of the functions have returned. Si besides the Execution Stack we also have something called the Message Queue in JS engine. This is where all the events that happened in the browser are put and thay sit there and waiting to be processed. 
+First, we need to rememeber about the Execution Stack. And that's because the rule is that an event can only be processed, or handled as soon as the execution stack is empty. Which mean all of the functions have returned. Besides the Execution Stack we also have something called the Message Queue in JS engine. This is where all the events that happened in the browser are put and they seat there and waiting to be processed. 
 
 in the lecture we will learn
 
-- How to set up an event handler
-- What a callback function is
-- What an anonymous function is
-- Another way to select element by ID
-- How to change the image in an <img> element
+    - How to set up an event handler
+    - What a callback function is
+    - What an anonymous function is
+    - Another way to select element by ID
+    - How to change the image in an <img> element
 
-<button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
-
+```html
+    <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
+```
 we don't want to call the btn function right here, so we don't write () to btn. We want the Event Listener call the function for us, then called the callback function and that's because it's a function that is not called by us. 
 
+```js
 document.querySelector('.btn-roll').addEventListener('click',btn);
 
 function btn(){
     
 }
-
+```
 or we use the anonymous function which a function doesn't have a name
 
-document.querySelector('.btn-roll').addEventListener('click',function(){
-    // 1. random number as soon as someone lick
+```js
+    document.querySelector('.btn-roll').addEventListener('click',function(){
+        // 1. random number as soon as someone lick
+        var dice = Math.floor(Math.random()*6) + 1;
     
-    var dice = Math.floor(Math.random()*6) + 1;
+        // 2.  display the result
+        var diceDOM = document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src='dice-' + dice + '.png';
     
-    // 2.  display the result
+        //3. Update the round score If the rolled number was not a 1
     
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src='dice-' + dice + '.png';
-    
-    //3. Update the round score If the rolled number was not a 1
-    
-});
+    });
+ ```
 
 we can update the current score by using getElementById
 
+```js
 document.getElementById('score-0').textContent = '0';
 
 document.getElementById('score-1').textContent = '0';
@@ -102,28 +153,35 @@ document.getElementById('current-0').textContent = '0';
 
 document.getElementById('current-1').textContent = '0';
 
+```
+
 ## 50 Update score and changing the Active Player
 
-document.querySelector('.btn-roll').addEventListener('click',function(){
-    // 1. random number as soon as someone lick
+```js
+    document.querySelector('.btn-roll').addEventListener('click',function(){
+        // 1. random number as soon as someone lick
     
-    var dice = Math.floor(Math.random()*6) + 1;
+        var dice = Math.floor(Math.random()*6) + 1;
     
-    // 2.  display the result
+        // 2.  display the result
     
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src='dice-' + dice + '.png';
+        var diceDOM = document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src='dice-' + dice + '.png';
     
-    ### //3. Update the round score If the rolled number was not a 1
-    if(dice !== 1){ // not type coercion
-        // add score
-        roundScore += dice;
-        document.querySelector('#current-'+activePlayer).textContent = roundScore;
-    }else{
+        ### //3. Update the round score If the rolled number was not a 1
+        if(dice !== 1){ // not type coercion
+            // add score
+            roundScore += dice;
+            document.querySelector('#current-'+activePlayer).textContent = roundScore;
+        }else{
     
-       nextPlayer();
-       
+            nextPlayer();
+    }
+  }
+});
+
+function nextPlayer(){
             // next player
             activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
             // the player score is 0
@@ -145,7 +203,7 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
             document.querySelector('.dice').style.display = 'none';
     }
 });
-
+```
 ## 51 Implementing our 'hold' function and the DRY principle
 
 <button class="btn-hold"><i class="ion-iso-download-outline"></i>Hold</button>
